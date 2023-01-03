@@ -47,7 +47,7 @@ Overall, the project offers a platform for users to discover and discuss a wide 
 4. Type following code:  
   
    from app import db  
-   from models import * 
+   from models import *  
    user = User.query.filter_by(name=[username]).first()  
    user.roles.append(Role.query.filter_by(name='admin').first())  
    db.session.commit()  
