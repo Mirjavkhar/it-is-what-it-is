@@ -1,0 +1,269 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    {{ user.name }} |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/profile.css">
+        <link rel="stylesheet" href="/static/css/post_block.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/css/colors.css">
+        <script src="/static/js/jquery-3.5.1.min.js"></script>
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div id="sections">
+        <div class="left">
+            <div class="profile">
+                <div class="bg-line">
+                    {% if current_user.is_authenticated and current_user == user %}
+                        <a href="{{ url_for('profile.edit', slug=user.slug) }}"><span class="symbol">setting</span></a>
+                    {% endif %}
+                </div>
+                <div class="about">
+                    <div>
+                        {% if user.avatar %}
+                            <img src="/static/uploads/[{{ user.id }}]/{{ user.avatar }}" alt="">
+                        {% else %}
+                            <img src="/static/img/default.png" alt="">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="name">
+                            <h1>{{ user.name }}</h1>
+                            {% if user.official == True %}
+                                <div>
+                                    <p>&#9752;</p>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <a href="{{ url_for('profile.index', slug=user.slug, filter='new') }}">{{ user.rank.first().name }}/{{ user.name }}</a>
+                        {% if user.about %}
+                            <p class="about-user">{{ user.about }}</p>
+                        {% endif %}
+                        <div class="info">
+                            <div>
+                                <div>
+                                    <a href="{{ url_for('profile.user_followers', slug=user.slug) }}">Followers</a>
+                                </div>
+                                <p><span class="symbol">group</span> {{ user.followers.count() }}</p>
+                            </div>
+                            <div>
+                                <div>
+                                    <a href="{{ url_for('profile.user_following', slug=user.slug) }}">Following</a>
+                                </div>
+                                <p><span class="symbol">friend</span> {{ user.followed.count() }}</p>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div>
+                                <p>Part of us since</p>
+                                <p><span class="symbol">heart</span> {{ user.created_on | dtf_m_d_y }}</p>
+                            </div>
+                            <div>
+                                <p>Karma</p>
+                                <p><span class="symbol">twinkle</span> {{ user.karma() }}</p>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user == user %}
+                            <div class="manage">
+                                <a href="{{ url_for('posts.create') }}">Create Post</a>
+                            </div>
+                        {% endif %}
+                        {% if current_user.is_authenticated and current_user != user %}
+                            <div class="manage">
+                                {% if current_user.is_following(user) %}
+                                    <a class="{% if current_user.is_following(user) %} unfollow {% endif %}" href="{{ url_for('profile.unfollow', slug=user.slug) }}">Unfollow</a>
+                                {% else %}
+                                    <a class="{% if not current_user.is_following(user) %} follow {% endif %}" href="{{ url_for('profile.follow', slug=user.slug) }}">Follow</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="post-section">
+            <div class="filter">
+                <a class="{% if filter == 'new' or not filter %} active {% endif %}" href="{{ url_for('profile.index', slug= user.slug, filter='new') }}"><span class="symbol">calendar</span> New</a>
+                <a class="{% if filter == 'top' %} active {% endif %}" href="{{ url_for('profile.index', slug=user.slug, filter='top') }}"><span class="symbol">list</span> Top</a>
+                {% if current_user == user %}
+                    <a class="{% if filter == 'saved-posts' %} active {% endif %}" href="{{ url_for('profile.index', slug=user.slug, filter='saved-posts') }}"><span class="symbol">bookmark</span> Saved Posts</a>
+                {% endif %}
+            </div>
+            <script>
+                $(document).ready(function(){
+                    // like and unlike click
+                    $(".like, .dislike").click(function(){
+                        var id = this.id;   // Getting Button id
+                        var split_id = id.split("_");
+                        var text = split_id[0];
+                        var post_slug = split_id[1];  // postid
+                        // AJAX Request
+                        $.ajax({
+                            url: '/posts/' + post_slug + '/' + text + '/index/index',
+                            type: 'POST',
+                            async: false,
+                            data: {slug:post_slug,action:text},
+                            dataType: 'html',
+                            success: function(data){
+                                // var likes = data['likes'];
+                                // var unlikes = data['unlikes'];
+                                $("#likes_"+post_slug).html(data);        // setting likes
+                                $("#dislikes_"+post_slug).html(data);    // setting unlikes
+                                setTimeout(function(){// wait for 5 secs(2)
+                                    location.reload(); // then reload the page.(3)
+                                }, 1); 
+                            }
+                        });
+                    });
+
+                    $(".save-unsave").click(function(){
+                        var id = this.id;   // Getting Button id
+                        var split_id = id.split("_");
+                        var post_slug = split_id[1];  // postid
+                        // AJAX Request
+                        $.ajax({
+                            url: '/posts/' + post_slug + '/save-unsave/index/index',
+                            type: 'POST',
+                            async: false,
+                            data: {slug:post_slug},
+                            dataType: 'html',
+                            success: function(data){
+                                // var likes = data['likes'];
+                                // var unlikes = data['unlikes'];
+                                $("#save-unsave"+post_slug).html(data);        // setting likes
+                                setTimeout(function(){// wait for 5 secs(2)
+                                    location.reload(); // then reload the page.(3)
+                                }, 1); 
+                            }
+                        });
+                    });
+                });
+            </script>
+            <ul>
+                {% for post in posts %}
+                    <li class="post-block">
+                        <div class="rate-block">
+                            <div class="rate">
+                                <a id="like_{{ post.slug }}" class="{% if current_user.is_authenticated %} like {% if current_user.is_liked(post) %} marked-up {% endif %}{% endif %}" unselectable='on', onselectstart='return false;' onmousedown='return false;'>
+                                    <span class="symbol">arrowup</span>
+                                </a>
+                                <span class="result">{{ post.rating() }}</span>
+                                <a id="dislike_{{ post.slug }}" class="{% if current_user.is_authenticated %} dislike {% if current_user.is_disliked(post) %} marked-down {% endif %}{% endif %}" unselectable='on', onselectstart='return false;' onmousedown='return false;'>
+                                    <span class="symbol">arrowdown</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="post-detail">
+                            <div>
+                                <div class="post-com-avatar">
+                                    {% if post.community.first().img %}
+                                        <img src="/static/img/communities/{{ post.community.first().img }}" alt="">
+                                    {% else %}
+                                        <img src="/static/img/default_com_logo.png" alt="">
+                                    {% endif %}
+                                </div>
+                                <div class="post-header">
+                                    <a href="{{ url_for('communities.index', slug=post.community.first().slug, filter='new') }}">c/{{ post.community.first().name }}</a>
+                                    <p>&middot;  Posted by <a href="{{ url_for('profile.index', slug=post.creator.first().slug, filter='new') }}">{{ post.creator.first().rank.first().name }}/{{ post.creator.first().name }}</a></p>
+                                    {% if post.creator.first().official == True %}
+                                        <div class="official">
+                                            <p>&#9752;</p>
+                                        </div>
+                                    {% endif %} 
+                                    <p>{% if post.updated %}&middot; Updated {% endif %} &middot; {{ post.created_on | dtf_m_d }}</p>
+                                </div>
+                            </div>
+                            <div class="post-title">
+                                <a href="{{ url_for('posts.index', slug=post.slug) }}">{{ post.title }}</a>
+                            </div>
+                            {% if post.content %}
+                                <div class="post-content post-content-over">
+                                    <p>{{ post.content | safe }}</p>    
+                                </div>
+                            {% endif %}
+                            {% if post.medias.first() %}
+                                <div class="post-img">
+                                    <img src="/static/uploads/[{{ post.creator.first().id }}]/{{ post.medias.first().name }}" alt="">  
+                                </div>
+                            {% endif %}
+                            <div class="post-footer">
+                                <div class="comments">
+                                    <a href="{{ url_for('posts.index', slug=post.slug, sec='com') }}#comments">
+                                        <span class="symbol">comment</span>
+                                        <p>{{ post.comments.count() }} Comments</p>
+                                    </a>
+                                </div>
+                                <div class="share">
+                                    <button onclick="copy_link('{{ post.slug }}');"><span class="symbol">share</span> Share</button>
+                                    <textarea id="{{ post.slug }}" class="post-link">{{ url_for('posts.index', slug=post.slug,  _external=True) }}</textarea>
+                                </div>
+                                <script>
+                                    function copy_link(link){
+                                        var copyTextarea = document.getElementById(link);
+                                        copyTextarea.select();
+                                        document.execCommand("copy");
+                                        alert("Copied the link!");
+                                    }
+                                </script>
+                                {% if current_user.is_authenticated %}
+                                    <div class="save-button">
+                                        <a id="save-unsave_{{ post.slug }}" class="save-unsave" unselectable='on', onselectstart='return false;' onmousedown='return false;'>
+                                            <span class="symbol">bookmark</span>
+                                            <p>{% if current_user.is_post_saved(post) %} Saved {% else %} Save {% endif %}</p>
+                                        </a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

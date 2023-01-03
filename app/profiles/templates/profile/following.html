@@ -1,0 +1,166 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    {{ user.name }} |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/profile.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/css/colors.css">
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div id="sections">
+        <div class="left">
+            <div class="profile">
+                <div class="bg-line">
+                    {% if current_user.is_authenticated and current_user == user %}
+                        <a href="{{ url_for('profile.edit', slug=user.slug) }}"><span class="symbol">setting</span></a>
+                    {% endif %}
+                </div>
+                <div class="about">
+                    <div>
+                        {% if user.avatar %}
+                            <img src="/static/uploads/[{{ user.id }}]/{{ user.avatar }}" alt="">
+                        {% else %}
+                            <img src="/static/img/default.png" alt="">
+                        {% endif %}
+                    </div>
+                    <div>
+                        <h1>{{ user.name }}</h1>
+                        <a href="{{ url_for('profile.index', slug=user.slug, filter='new') }}">{{ user.rank.first().name }}/{{ user.name }}</a>
+                        {% if user.about %}
+                            <p class="about-user">{{ user.about }}</p>
+                        {% endif %}
+                        {% if user.confirm %}
+                            <div class="verified">
+                                <p>Verified <span class="symbol">star</span></a>
+                            </div>
+                        {% elif user != current_user %}
+                            <div class="notverified">
+                                <p>Not verified <span class="symbol">starempty</span></a>
+                            </div>
+                        {% endif %}
+                        {% if current_user == user and not current_user.confirm %}
+                            <div class="verify">
+                                <a href="{{ url_for('profile.verify', slug=current_user.slug) }}">Verify</a>
+                            </div>
+                        {% endif %}
+                        <div class="info">
+                            <div>
+                                <div>
+                                    <a href="{{ url_for('profile.user_followers', slug=user.slug) }}">Followers</a>
+                                </div>
+                                <p><span class="symbol">group</span> {{ user.followers.count() }}</p>
+                            </div>
+                            <div>
+                                <div>
+                                    <a href="{{ url_for('profile.user_following', slug=user.slug) }}">Following</a>
+                                </div>
+                                <p><span class="symbol">friend</span> {{ user.followed.count() }}</p>
+                            </div>
+                        </div>
+                        <div class="info">
+                            <div>
+                                <p>Part of us since</p>
+                                <p><span class="symbol">heart</span> {{ user.created_on | dtf_m_d_y }}</p>
+                            </div>
+                            <div>
+                                <p>Karma</p>
+                                <p><span class="symbol">twinkle</span> {{ user.karma() }}</p>
+                            </div>
+                        </div>
+                        {% if current_user.is_authenticated and current_user == user %}
+                            <div class="manage">
+                                <a href="{{ url_for('posts.create') }}">Create Post</a>
+                            </div>
+                        {% endif %}
+                        {% if current_user.is_authenticated and current_user != user %}
+                            <div class="manage">
+                                {% if current_user.is_following(user) %}
+                                    <a class="{% if current_user.is_following(user) %} unfollow {% endif %}" href="{{ url_for('profile.unfollow', slug=user.slug) }}">Unfollow</a>
+                                {% else %}
+                                    <a class="{% if not current_user.is_following(user) %} follow {% endif %}" href="{{ url_for('profile.follow', slug=user.slug) }}">Follow</a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="user-section">
+            <div class="followers">
+                <div>
+                    <h5>Following</h5>
+                </div>
+                <ul>
+                    {% for follower in followings %}
+                        <li class="follower">
+                            <div>
+                                <div id="avatar-block">
+                                    {% if follower.avatar %}
+                                        <img src="/static/uploads/[{{ follower.id }}]/{{ follower.avatar }}" alt="">
+                                    {% else %}
+                                        <img src="/static/img/default.png" alt="">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <a href="{{url_for('profile.index', slug=follower.slug, filter='new')}}">{{ follower.rank.first().name }} / {{ follower.name }}</a>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if not followings %}
+                    <div class="if_empty">
+                        <h6>No following were found.</h6>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

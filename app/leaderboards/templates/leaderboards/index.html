@@ -1,0 +1,174 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    {% if current_category %} {{ current_category.name }} {% else %} Top Communities {% endif %} |
+{% endblock %}
+
+
+{% block header %} 
+    <section class="{% if current_category %} {{ current_category.slug }}-bg {% endif %} top-bg"></section>
+    <section class="header">
+        {% if current_category %}
+            <div class="category-img">
+                <img src="/static/img/categories/{{ current_category.slug }}.jpg" alt="">
+            </div>
+            <div class="category-head">
+                <h1>Today's Top Growing Communities</h1>
+                <p>Browse iiwii's top growing communities. Find the top communities in your favorite category.</p>
+            </div>
+        {% else %}
+            <div class="category-img">
+                <img src="/static/img/bg.png" alt="">
+            </div>
+            <div class="category-head">
+                <h1>Today's Top Growing Communities</h1>
+                <p>Browse iiwii's top growing communities. Find the top communities in your favorite category.</p>
+            </div>
+        {% endif %}
+    </section>
+{% endblock %} 
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/leaderboard.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/css/colors.css">
+        <script src="/static/js/jquery-3.5.1.min.js"></script>
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div id="sections">
+        <div id="cat-block">
+            <div class="info-box">
+                <div class="my-theme">
+                    <h5>Categories</h5>
+                </div>
+                <div class="box-content">
+                    <a class="{% if not current_category %} box-active {% endif %}" href="{{ url_for('leaderboards.index') }}"><span></span> All Communities</a>
+                    {% for category in categories %}
+                        <a class="{% if current_category == category %} box-active {% endif %}" href="{{ url_for('leaderboards.category', slug=category.slug) }}"><span></span> {{ category.name }}</a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div id="com-section">
+            <div>
+                <p>Today's Top Growing {% if current_category %} in {{ current_category.name }} {% else %} Communities {% endif %}</p>
+            </div>
+            {% if not communities %}
+                <div class="if_empty">
+                    <h6>No communities were found.</h6>
+                </div>
+            {% endif %}
+            {% if communities %}
+                <ol>
+                    {% for community, num in zip(communities, range(1, com_len+1)) %}
+                        <li class="com-block">
+                            <div class="com-box">
+                                <p>{{ num }}<span class="symbol"> up</span></p>
+                                <div class="com-avatar">
+                                    {% if community.img %}
+                                        <img src="/static/img/communities/{{ community.img }}" alt="">
+                                    {% else %}
+                                        <img src="/static/img/default_com_logo.png" alt="">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <p>c/{{ community.name }}</p>
+                                    <p>&middot; {{ community.members.count() }} members</p>
+                                </div>
+                            </div>
+                            <div>
+                                <a class="{% if category %} {{ category.slug }}-go-btn {% endif %}" href="{{ url_for('communities.index', slug=community.slug, filter='new') }}">Go</a>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ol>
+            {% endif %}
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="cat-header">
+                    <div class="{{ random_category.slug }}-bg"></div>
+                    <div class="cat-header-detail">
+                        <div class="cat-header-avatar">
+                            <img src="/static/img/categories/{{ random_category.slug }}.jpg" alt="">
+                        </div>
+                        <div>
+                            <h5>{{ random_category.about }}</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-but-content">
+                    {% for community in random_category_communities %}
+                        {% if community.confirm %}
+                            <div>
+                                <div class="box-but-info">
+                                    <div class="box-but-avatar">
+                                        {% if community.img %}
+                                            <img src="/static/img/communities/{{ community.img }}" alt="">
+                                        {% else %}
+                                            <img src="/static/img/default_com_logo.png" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <p>c/{{ community.name }}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a class="{{ random_category.slug }}-go-btn" href="{{ url_for('communities.index', slug=community.slug) }}">Go</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    <div>
+                        <a class="{{ random_category.slug }}-btn" href="{{ url_for('leaderboards.category', slug=random_category.slug) }}">View all</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

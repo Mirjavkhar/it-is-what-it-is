@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/static/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/css/animate.css">
+        <link rel="stylesheet" href="/static/css/base.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/fonts/fonts.css">
+        <script src="/static/js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+        <title>
+            {% block title %} {% endblock %} it is what it is
+        </title>
+    </head>
+    <body>
+        <div class="page">
+            <header>
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="padding-block-navbar">
+                        <a class="navbar-brand" href="{{ url_for('index') }}">
+                            <img src="/static/img/logo.png" alt="">
+                            <h1>it is what it is</h1>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <ul class="navbar-nav ml-auto">
+                                {% if page != '404' %}
+                                    <li class="nav-item">
+                                        <form class="form-inline" action="{{ url_for('index') }}">
+                                            <input class="form-control" type="search" placeholder="Search" aria-label="Search" minlength='3' maxlenght='200' name="q" value="{{ request.args.get('q', '') }}">
+                                            <button class="btn" type="submit">
+                                                <span class="symbol">search</span>
+                                            </button>
+                                        </form>
+                                    </li>
+                                    {% if current_user.is_authenticated %}
+                                        <li class="nav-item iconmenu icon-button">
+                                            <a class="nav-link" href="{{ url_for('posts.create') }}">
+                                                <span class="symbol">addnew</span>
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endif %}
+                                {% if current_user.is_authenticated %}
+                                    <li class="nav-item dropdown dropmenu">
+                                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <div class="ava">
+                                                <div class="user-ava">
+                                                    {% if current_user.avatar %}
+                                                        <img src="/static/uploads/[{{ current_user.id }}]/{{ current_user.avatar }}" alt="">
+                                                    {% else %}
+                                                        <img src="/static/img/default.png" alt="">
+                                                    {% endif %}
+                                                </div>
+                                                <h2>{{ current_user.name }} </h2>
+                                            </div>
+                                            <span class="symbol">menu</span>
+                                        </a>
+                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <a class="dropdown-item" href="{{ url_for('profile.index', slug=current_user.slug, filter='new') }}">My Profile</a>
+                                            {% if current_user.is_authenticated %}
+                                                {% if current_user.has_role('admin') %}
+                                                    <a class="dropdown-item" href="/admin">Admin Panel</a>
+                                                {% endif %}
+                                            {% endif %}
+                                            <a class="dropdown-item" href="{{ url_for('authorization.logout') }}">Logout</a>
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li class="nav-item iconmenu">
+                                        <a class="login log" href="{{ url_for('authorization.login') }}">Login</a>
+                                    </li>
+                                    <li class="nav-item iconmenu">
+                                        <a class="login" href="{{ url_for('authorization.signup') }}">Sign Up</a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+            </header>
+
+            {% block header %} {% endblock %}
+
+            <main>
+                <div class="padding-block">
+                    {% block content %} {% endblock %}
+                </div>
+            </main>
+
+            <footer></footer>
+        </div>
+    
+        <script src="/static/js/jquery-3.5.1.min.js"></script>
+        <script src="/static/js/popper.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    </body>
+</html>

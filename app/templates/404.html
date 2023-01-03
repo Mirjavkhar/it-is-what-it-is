@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+    404 |
+{% endblock %}
+
+
+{% block content %} 
+    <style>
+        .padding-block {
+            padding: 0px;
+        }
+    </style>
+    <div class="error-block">
+        <div>
+            <div>
+                <img src="/static/img/404.jpg" alt="">
+            </div>
+            <div>
+                <h6>Looks like you've got lost...</h6>
+                <p>The page your're looking for doesn't exist or has been moved.</p>
+                <a href="{{ url_for('index') }}">Go Home</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

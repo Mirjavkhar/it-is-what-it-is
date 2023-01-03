@@ -1,0 +1,50 @@
+@font-face {
+    font-family: 'Soft-Elegance';
+    src:
+        url('Soft-Elegance.eot') format('eot'),
+        url('Soft-Elegance.otf') format('otf'),
+        url('Soft-Elegance.svg') format('svg'),
+        url('Soft-Elegance.ttf') format('ttf'),
+        url('Soft-Elegance.woff') format('woff'),
+        url('Soft-Elegance.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Symbols';
+    src:
+        url('Symbols.eot') format('eot'),
+        url('Symbols.otf') format('otf'),
+        url('Symbols.svg') format('svg'),
+        url('Symbols.ttf') format('ttf'),
+        url('Symbols.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'BubblegumSans';
+    src:
+        url('BubblegumSans.eot') format('eot'),
+        url('BubblegumSans.otf') format('otf'),
+        url('BubblegumSans.svg') format('svg'),
+        url('BubblegumSans.ttf') format('ttf'),
+        url('BubblegumSans.woff') format('woff'),
+        url('BubblegumSans.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* @font-face {
+    font-family: '';
+    src:
+        url('.eot') format('eot'),
+        url('.otf') format('otf'),
+        url('.svg') format('svg'),
+        url('.ttf') format('ttf'),
+        url('.woff') format('woff'),
+        url('.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+} */

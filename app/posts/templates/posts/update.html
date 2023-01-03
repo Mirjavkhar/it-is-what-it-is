@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Edit Post |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/post_update.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    <div class="section">
+        <div class="left">
+            <div class="post-type">
+                <span class="symbol">edit</span>
+                <p>Update a Post</p>
+            </div>
+            <div class="post-form">
+                <div class="opt">
+                    <form action="{{ url_for('posts.update', slug=post.slug, type='post') }}" enctype="multipart/form-data" method="POST">
+                        <div class="TitleBox">
+                            <h1>{{ post.title }}</h1>
+                        </div>
+                        <div class="TextAreaBox">
+                            {{ form.content(minlength='3', maxlength='2000') }}
+                        </div>
+                        <div>
+                            <button type="submit">Update</button>
+                            <a class="cancel" href="{{ url_for('posts.index', slug=post.slug) }}">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Posting to iiwii</h5>
+                </div>
+                <div class="box-list-content">
+                    <ol>
+                        <li>Remember the human</li>
+                        <li>Behave like you would in real life</li>
+                        <li>Look for the original source of content</li>
+                        <li>Search for duplicates before posting</li>
+                        <li>Read the community’s rules</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock %}

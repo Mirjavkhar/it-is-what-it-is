@@ -1,0 +1,82 @@
+* {
+    margin: 0;
+    padding: 0;
+    /* outline: 1px solid red; */
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+/* === Sections === */
+
+#sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0px 0px 0px;
+}
+
+/* === Box-create === */
+
+.box-create {
+    width: 100%;
+    height: 100px;
+    background: url('/static/img/planet.gif') 50% 50% / cover;
+    border-radius: 5px 5px 0px 0px;
+    overflow: hidden;
+}
+
+.box-create-content {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-top: none;
+    border-radius: 0px 0px 5px 5px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+
+.box-create-content h6 {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.box-create-content p {
+    color: #333333;
+    font-size: 14px;
+    font-weight: 400;
+    margin: 0px;
+}
+
+.create-btn {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.create-btn span {
+    width: 100%;
+}
+
+.create-btn a {
+    width: 100%;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-align: center;
+    background: rgb(231, 175, 53);
+    border-radius: 5px;
+    padding: 3px 12px;
+    transition: .3s linear;
+}
+
+.create-btn a:hover {
+    opacity: 0.9;
+}
+
+

@@ -1,0 +1,488 @@
+/* ===== Colors ===== */
+
+/* === Red === */
+
+.red {
+    color: #ffffff !important;
+    background: #c80000 !important;
+}
+
+.red h5 {
+    color: #ffffff !important;
+}
+
+.red-span {
+    color: #c80000 !important;
+}
+
+.red-filter {
+    color: #ffffff !important;
+}
+
+/* === Green === */
+
+.green {
+    color: #ffffff !important;
+    background: #009600 !important;
+}
+
+.green h5 {
+    color: #ffffff !important;
+}
+
+.green-span {
+    color: #009600 !important;
+}
+
+.green-filter {
+    color: #ffffff !important;
+}
+
+/* === Aqua === */
+
+.aqua {
+    color: #ffffff !important;
+    background: #49a3a4 !important;
+}
+
+.aqua h5 {
+    color: #ffffff !important;
+}
+
+.aqua-span {
+    color: #49a3a4 !important;
+}
+
+.aqua-filter {
+    color: #ffffff !important;
+}
+
+/* === Yellow === */
+
+.yellow {
+    color: #333333 !important;
+    background: #ffe030 !important;
+}
+
+.yellow h5 {
+    color: #333333 !important;
+}
+
+.yellow-span {
+    color: #ffe030 !important;
+}
+
+.yellow-filter {
+    color: #333333 !important;
+}
+
+/* === Black === */
+
+.black {
+    color: #ffffff !important;
+    background: #000000 !important;
+}
+
+.black h5 {
+    color: #ffffff !important;
+}
+
+
+.black-span {
+    color: #000000 !important;
+}
+
+.black-filter {
+    color: #ffffff !important;
+}
+
+/* === Blue === */
+
+.blue {
+    color: #ffffff !important;
+    background: #006fee !important;
+}
+
+.blue h5 {
+    color: #ffffff !important;
+}
+
+
+.blue-span {
+    color: #006fee !important;
+}
+
+.blue-filter {
+    color: #ffffff !important;
+}
+
+
+
+
+
+
+
+
+/* ===== Art ===== */
+
+.art-bg {
+    background: rgb(255,41,119) !important;
+    background: linear-gradient(135deg, rgba(255,41,119,1) 0%, rgba(255,236,120,1) 100%) !important;
+}
+
+.art-btn {
+    background: rgb(255,41,119) !important;
+}
+
+.art-btn:hover {
+    opacity: 0.9;
+}
+
+.art-go-btn {
+    color: rgb(255,41,119) !important;
+    border-color: rgb(255,41,119) !important;
+    background: #ffffff;
+}
+
+.art-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(255,41,119) !important;
+}
+
+/* ===== Math ===== */
+
+.math-bg {
+    background: rgb(68,37,255) !important;
+    background: linear-gradient(135deg, rgba(68,37,255,1) 0%, rgba(94,239,255,1) 100%) !important;
+}
+
+.math-btn {
+    background: rgb(68,37,255) !important;
+}
+
+.math-btn:hover {
+    opacity: 0.9;
+}
+
+.math-go-btn {
+    color: rgb(68,37,255) !important;
+    border-color: rgb(68,37,255) !important;
+    background: #ffffff;
+}
+
+.math-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(68,37,255) !important;
+}
+
+/* ===== Cars ===== */
+
+.cars-bg {
+    background: rgb(20,20,20) !important;
+    background: linear-gradient(135deg, rgba(20,20,20,1) 0%, rgba(111,111,111,1) 100%) !important;
+}
+
+.cars-btn {
+    background: rgb(20,20,20) !important;
+}
+
+.cars-btn:hover {
+    opacity: 0.9;
+}
+
+.cars-go-btn {
+    color: rgb(20,20,20) !important;
+    border-color: rgb(20,20,20) !important;
+    background: #ffffff;
+}
+
+.cars-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(20,20,20) !important;
+}
+
+/* ===== Music ===== */
+
+.music-bg {
+    background: rgb(85,36,255) !important;
+    background: linear-gradient(135deg, rgba(85,36,255,1) 0%, rgba(255,115,244,1) 100%) !important;
+}
+
+.music-btn {
+    background: rgb(85,36,255) !important;
+}
+
+.music-btn:hover {
+    opacity: 0.9;
+}
+
+.music-go-btn {
+    color: rgb(85,36,255) !important;
+    border-color: rgb(85,36,255) !important;
+    background: #ffffff;
+}
+
+.music-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(85,36,255) !important;
+}
+
+/* ===== Health ===== */
+
+.health-bg {
+    background: rgb(0,127,255) !important;
+    background: linear-gradient(135deg, rgba(0,127,255,1) 0%, rgba(111,234,255,1) 100%) !important;
+}
+
+.health-btn {
+    background: rgb(0,127,255) !important;
+}
+
+.health-btn:hover {
+    opacity: 0.9;
+}
+
+.health-go-btn {
+    color: rgb(0,127,255) !important;
+    border-color: rgb(0,127,255) !important;
+    background: #ffffff;
+}
+
+.health-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(0,127,255) !important;
+}
+
+/* ===== Nature ===== */
+
+.nature-bg {
+    background: rgb(0,124,3) !important;
+    background: linear-gradient(135deg, rgba(0,124,3,1) 0%, rgba(0,255,173,1) 100%) !important;
+}
+
+.nature-btn {
+    background: rgb(0,124,3) !important;
+}
+
+.nature-btn:hover {
+    opacity: 0.9;
+}
+
+.nature-go-btn {
+    color: rgb(0,124,3) !important;
+    border-color: rgb(0,124,3) !important;
+    background: #ffffff;
+}
+
+.nature-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(0,124,3) !important;
+}
+
+/* ===== Games ===== */
+
+.games-bg {
+    background: rgb(187,0,175) !important;
+    background: linear-gradient(135deg, rgba(187,0,175,1) 0%, rgba(239,255,0,1) 100%) !important;
+}
+
+.games-btn {
+    background: rgb(187,0,175) !important;
+}
+
+.games-btn:hover {
+    opacity: 0.9;
+}
+
+.games-go-btn {
+    color: rgb(187,0,175) !important;
+    border-color: rgb(187,0,175) !important;
+    background: #ffffff;
+}
+
+.games-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(187,0,175) !important;
+}
+
+/* ===== Physics ===== */
+
+.physics-bg {
+    background: rgb(255,126,0) !important;
+    background: linear-gradient(135deg, rgba(255,126,0,1) 0%, rgba(216,0,255,1) 100%) !important;
+}
+
+.physics-btn {
+    background: rgb(255,126,0) !important;
+}
+
+.physics-btn:hover {
+    opacity: 0.9;
+}
+
+.physics-go-btn {
+    color: rgb(255,126,0) !important;
+    border-color: rgb(255,126,0) !important;
+    background: #ffffff;
+}
+
+.physics-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(255,126,0) !important;
+}
+
+/* ===== Beauty ===== */
+
+.beauty-bg {
+    background: rgb(250,182,255) !important;
+    background: linear-gradient(135deg, rgba(250,182,255,1) 0%, rgba(255,238,172,1) 100%) !important;
+}
+
+.beauty-btn {
+    background: rgb(250,182,255) !important;
+}
+
+.beauty-btn:hover {
+    opacity: 0.9;
+}
+
+.beauty-go-btn {
+    color: rgb(250,182,255) !important;
+    border-color: rgb(250,182,255) !important;
+    background: #ffffff;
+}
+
+.beauty-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(250,182,255) !important;
+}
+
+/* ===== Travel ===== */
+
+.travel-bg {
+    background: rgb(0,207,214) !important;
+    background: linear-gradient(135deg, rgb(0,207,214,1) 0%, rgba(246,255,120,1) 100%) !important;
+}
+
+.travel-btn {
+    background: rgb(0,207,214) !important;
+}
+
+.travel-btn:hover {
+    opacity: 0.9;
+}
+
+.travel-go-btn {
+    color: rgb(0,207,214) !important;
+    border-color: rgb(0,207,214) !important;
+    background: #ffffff;
+}
+
+.travel-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(0,207,214) !important;
+}
+
+/* ===== Science ===== */
+
+.science-bg {
+    background: rgb(180,22,22) !important;
+    background: linear-gradient(135deg, rgba(180,22,22,0.8953956582633054) 0%, rgba(21,17,199,0.9009978991596639) 100%) !important;
+}
+
+.science-btn {
+    background: rgb(180,22,22) !important;
+}
+
+.science-btn:hover {
+    opacity: 0.9;
+}
+
+.science-go-btn {
+    color: rgb(180,22,22) !important;
+    border-color: rgb(180,22,22) !important;
+    background: #ffffff;
+}
+
+.science-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(180,22,22) !important;
+}
+
+/* ===== Lifestyle ===== */
+
+.lifestyle-bg {
+    background: rgb(255,174,0) !important;
+    background: linear-gradient(135deg, rgba(255,174,0,1) 0%, rgba(255,28,95,1) 100%) !important;
+}
+
+.lifestyle-btn {
+    background: rgba(255,28,95,1) !important;
+}
+
+.lidestyle-btn:hover {
+    opacity: 0.9;
+}
+
+.lifestyle-go-btn {
+    color: rgba(255,28,95,1) !important;
+    border-color: rgba(255,28,95,1) !important;
+    background: #ffffff;
+}
+
+.lifestyle-go-btn:hover {
+    color: #ffffff !important;
+    background: rgba(255,28,95,1) !important;
+}
+
+/* ===== Movies ===== */
+
+.movies-bg {
+    background: rgb(39,34,255) !important;
+    background: linear-gradient(135deg, rgba(39,34,255,1) 0%, rgba(88,202,255,1) 100%) !important;
+}
+
+.movies-btn {
+    background: rgb(39,34,255) !important;
+}
+
+.movies-btn:hover {
+    opacity: 0.9;
+}
+
+.movies-go-btn {
+    color: rgb(39,34,255) !important;
+    border-color: rgb(39,34,255) !important;
+    background: #ffffff;
+}
+
+.movies-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(39,34,255)!important;
+}
+
+/* ===== Technologies ===== */
+
+.technologies-bg {
+    background: rgb(255,66,0) !important;
+    background: linear-gradient(135deg, rgba(255,66,0,1) 0%, rgba(218,218,29,1) 100%) !important;
+}
+
+.technologies-btn {
+    background: rgb(255,66,0) !important;
+}
+
+.technologies-btn:hover {
+    opacity: 0.9;
+}
+
+.technologies-go-btn {
+    color: rgb(255,66,0) !important;
+    border-color: rgb(255,66,0) !important;
+    background: #ffffff;
+}
+
+.technologies-go-btn:hover {
+    color: #ffffff !important;
+    background: rgb(255,66,0)!important;
+}

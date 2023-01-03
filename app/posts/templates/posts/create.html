@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Create Post |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/post_update.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="section">
+        <div class="left">
+            <div class="post-type">
+                <span class="symbol">edit</span>
+                <p>Create a Post</p>
+            </div>
+            <form action="{{ url_for('posts.create') }}" enctype="multipart/form-data" method="POST">
+                <select name="post_community" class="custom-select" required>
+                    <option selected disabled>Choose a community</option>
+                    {% for community in communities %}
+                        {% if community.confirm %}
+                            <option value="{{ community.name }}">{{ community.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <div class="post-form">
+                    <div class="InputBox">
+                        {{ form.title(minlength='3', maxlength='200', required='', placeholder="Title") }}
+                    </div>
+                    <div class="TextAreaBox">
+                        <label class="form-label"><span class="symbol">keyboard</span> Text (optional)</label>
+                        {{ form.content(minlength='3', maxlength='2000') }}
+                    </div>
+                    <div class="FileUploadBox">
+                        <label class="form-label"><span class="symbol">image</span> Drag and drop image to upload (optional)</label>
+                        {{ form.file() }}
+                    </div>
+                    <div>
+                        <button type="submit">Post</button>
+                        <a class="cancel" href="{{ url_for('index') }}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Posting to iiwii</h5>
+                </div>
+                <div class="box-list-content">
+                    <ol>
+                        <li>Remember the human</li>
+                        <li>Behave like you would in real life</li>
+                        <li>Look for the original source of content</li>
+                        <li>Search for duplicates before posting</li>
+                        <li>Read the community’s rules</li>
+                    </ol>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock %}

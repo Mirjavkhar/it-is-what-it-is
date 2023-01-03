@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Customize Community |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/community_create.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div id="section">
+        <div class="left">
+            <div class="block-title">
+                <span class="symbol">edit</span>
+                <p>Customize Community</p>
+            </div>
+            <div class="">
+                <form action="{{ url_for('communities.customize', slug=community.slug) }}" enctype="multipart/form-data" method="POST">
+                    <div class="community-form">
+                        <h1>c/{{ community.name }}</h1>
+                        <div class="TextAreaBox">
+                            <label class="form-label"><span class="symbol">book</span> Community description</label>
+                            {{ form.about(minlength='3', maxlength='200') }}
+                        </div>
+                        <select name="community_color" class="custom-select custom-select-color" required>
+                            <option selected disabled>{{ community.color[0].upper() + community.color[1:].lower()}}</option>
+                            <option value="aqua">Aqua</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="green">Green</option>
+                            <option value="red">Red</option>
+                            <option value="violet">Violet</option>
+                            <option value="yellow">Yellow</option>
+                        </select>
+                        <div class="FileUploadBox">
+                            <label class="form-label"><span class="symbol">image</span> Community Logo (optional)</label>
+                            {{ form.img() }}
+                        </div>
+                        <div class="FileUploadBox">
+                            <label class="form-label"><span class="symbol">photo</span> Community Background (optional)</label>
+                            {{ form.bgimg() }}
+                        </div>
+                        <div>
+                            <button type="submit">Customize</button>
+                            <a class="cancel" href="{{ url_for('communities.index', slug=community.slug, filter='new') }}">Cancel</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Customizing Community</h5>
+                </div>
+                <div class="box-coomunity-content">
+                    <div>
+                        <h6><span class="symbol">memo</span> Description</h6>
+                        <p>This is how new members come to understand your community.</p>
+                    </div>
+                    <div>
+                        <h6><span class="symbol">memo</span> Color</h6>
+                        <p>This indicates the main color of your community, which will be in the community's home-page and in about block.</p>
+                    </div>
+                    <div>
+                        <h6><span class="symbol">memo</span> Logo</h6>
+                        <p>This is your community's logo.</p>
+                    </div>
+                    <div>
+                        <h6><span class="symbol">memo</span> Background</h6>
+                        <p>This is your community's background image, which will be in community's home-page.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="option-block">
+                    <div>
+                        <div>
+                            <a href="">About</a>
+                            <a href="">Help</a>
+                            <a href="{{ url_for('report') }}">Report</a>
+                        </div>
+                        <div>
+                            <a href="">Terms</a>
+                            <a href="">Content Policy</a>
+                            <a href="">Privacy Policy</a>
+                        </div>
+                    </div>
+                    <div>
+                        <p>iiwii Inc © 2022. All rights reserved</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

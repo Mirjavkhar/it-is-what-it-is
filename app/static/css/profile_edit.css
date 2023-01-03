@@ -1,0 +1,269 @@
+/* === Sections === */
+
+#sections {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px 0px;
+}
+
+#sections > div:first-child {
+    width: 70%;
+}
+
+/* === Edit-block === */
+
+.edit-block {
+    width: 100%;
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.block-title {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #333333;
+    margin-bottom: 10px;
+}
+
+.block-title p {
+    color: #333333;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0px;
+}
+
+.block-title span {
+    color: #333333;
+    font-size: 18px;
+    font-weight: 400;
+    margin-right: 8px;
+}
+
+/* === File-Upload === */
+
+.AvaUploadBox {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.AvaUploadBox > div:last-child {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.AvaUploadBox > div:last-child > div {
+    display: flex;
+    align-items:center;
+}
+
+.AvaUploadBox > div:first-child {
+    height: 100px;
+    width: 100px;
+    background: #ffffff;
+    border: 3px solid #30303025;
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-right: 20px;
+}
+
+.AvaUploadBox > div:first-child > img {
+    height: 100%;
+    margin: 0px;
+}
+
+input[type="file" i] { 
+    background: #f8f8f8;
+    border: 1px solid #30303025;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 5px 10px;
+}
+
+input[type="file" i]:focus { 
+    outline: none;
+    box-shadow: none;
+    border: 1px solid #333333;
+}
+
+/* === Textarea === */
+
+.TextAreaBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.TextAreaBox textarea { 
+    height: 90px;
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-radius: 5px;
+    overflow-y: scroll;
+    resize: none;
+    padding: 5px 10px;
+}
+
+.TextAreaBox textarea:focus {
+    border: 1px solid #333333;
+    outline: none;
+}
+
+.form-label {
+    color: #333333bb;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin: 0px 10px 5px 0px;
+}
+
+.form-label > span {
+    color: #333333bb;
+    font-size: 18px;
+    font-weight: 400;
+    margin: 0px 8px -2px 0px;
+}
+
+/* === Button === */
+
+.edit-block form button {
+    color: #ffffff;
+    font-size: 16px;
+    background: #006fee;
+    border: 1px solid #006fee;
+    border-radius: 5px;
+    padding: 6px 25px;
+    margin-top: 20px;
+    transition: .3s linear;
+}
+
+.edit-block form div button {
+    opacity: 0.9;
+}
+
+.edit-block form div button:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+.cancel {
+    color: #006fee;
+    font-size: 16px;
+    background: #ffffff;
+    border: 1px solid #006fee;
+    border-radius: 5px;
+    padding: 9px 20px;
+    margin-left: 10px;
+    transition: .3s linear;
+}
+
+.cancel:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+/* === Box-profile-content === */
+
+.box-profile-content {
+    width: 100%;
+    position: relative;
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-radius: 0px 0px 5px 5px;
+    border-top: none;
+    overflow: hidden;
+    padding: 10px 15px 5px 15px;
+    display: inline-block !important;
+    word-break: break-word !important;
+}
+
+.box-profile-content > div { 
+    display: flex;
+    align-items: center;
+    margin: 2px 0px;
+}
+
+.box-profile-content > div p { 
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px;
+}
+
+.box-profile-content > div span { 
+    color: #333333;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0px 10px 0px 0px;
+}
+
+/* === Verification === */
+
+.val-list li {
+    font-size: 14px;
+    color: #a0a0a0;
+    padding: 5px 0;
+    margin-left: 15px;
+}
+
+.change-btn {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0px !important;
+}
+
+.change-btn a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48%;
+    color: #333333;
+    background: #e8e8eb !important;
+    border-radius: 5px;
+    padding: 3px 0px;
+}
+
+.change-btn a:hover {
+    text-decoration: none;
+    opacity: 0.9;
+}
+
+.change-btn a span {
+    margin: 0px 5px 0px 0px;
+}
+
+.inputBox {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.inputBox input { 
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.inputBox input:focus {
+    border: 1px solid #333333;
+    outline: none;
+}
+
+.input-valid {
+    border: 1px solid rgb(18, 182, 45) !important;
+}
+  
+.input-invalid {
+    border: 1px solid rgb(197, 22, 22) !important;
+}
+
+
+
+

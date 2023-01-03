@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/static/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/auth.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/fonts/fonts.css">
+        <link rel="stylesheet" href="/static/css/animate.css">
+        <script src="/static/js/wow.min.js"></script>
+        <script defer src="/static/js/validation.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+        <title>Sign Up | iiwii</title>
+    </head>
+    <body>
+        <div class="form-content">
+            <div>
+                <div>
+                    <img src="/static/img/logo.png" alt="">
+                    <h1>it is what it is</h1>
+                </div>
+                <div>
+                    <a href="{{ url_for('index') }}"><span class="symbol">close</span></a>
+                </div>
+            </div>
+            <h2>Sign Up</h2>
+            <span>Already have an account? Go to <a href="{{ url_for('authorization.login') }}">Login</a></span>
+            {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+                {% if messages %}
+                    <div class="alert animate__animated animate__fadeInDown">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <p>Please fill out all required fields.</p>
+            <form action="{{ url_for('authorization.signup') }}" method="POST">
+                <div class="inputBox">
+                    <label>Username</label>
+                    <ul class="val-list">
+                        <li>begins with a character ([a-zA-Z]).</li>
+                        <li>contains 3 or more alphanumeric characters.</li>
+                    </ul>
+                    {{ form.username(minlength='3', maxlength='20') }}
+                </div>
+                <div class="inputBox">
+                    <label>Email</label>
+                    {{ form.email() }}
+                </div>
+                <div class="inputBox">
+                    <label>Password</label>
+                    <ul class="val-list">
+                        <li>contains 8 or more characters</li>
+                        <li>contains at least 1 upper case letter</li>
+                        <li>contains 1 number</li> 
+                        <li>contains one of the following special characters:<br>/ * - + ! @ # $ ^ & ~ [ ]</li>
+                    </ul>
+                    {{ form.password() }}
+                </div>
+                <div class="inputBox">
+                    <label>Confirm password</label>
+                    {{ form.password_confirm() }}
+                </div>
+                <button type="submit" id="sbmt" class="btn">Sign Up</button>
+            </form>
+        </div>
+    </body>
+</html>

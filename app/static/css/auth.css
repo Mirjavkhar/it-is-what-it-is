@@ -1,0 +1,173 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Soft-Elegance', sans-serif;
+    font-weight: 600;
+    /* outline: 1px solid red; */
+}
+
+body {
+    background: url('/static/img/bg.png') 50% 50% / cover;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px white inset !important;
+    box-shadow: 0;
+}
+
+.alert {
+    font-size: 16px;
+    color: #d61212;
+    background: #ffffff !important;
+    border: 1px solid #d61212;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 14px;
+    margin: 15px 0px;
+}
+
+/* ===== Form-Content ===== */
+
+.form-content {
+    background: #ffffff;
+    border: 1px solid #30303025;
+    border-radius: 5px;
+    padding: 30px 50px;
+    z-index: 10;
+}
+
+.form-content > div {
+    background: #ffffff;
+    display: flex;
+}
+
+.form-content > div:first-child > div:first-child {
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.form-content > div:first-child > div:last-child > a {
+    top: 0px;
+    text-decoration: none;
+}
+
+.form-content > div:first-child > div:last-child > a > span {
+    font-size: 25px !important;
+}
+
+.form-content > div:first-child > div:last-child > a:hover > span {
+    color: #006fee;
+}
+
+.form-content > div > div > img {
+    height: 60px;
+    width: auto;
+}
+
+.form-content > div > div > h1 {
+    font-size: 30px;
+    color: #e63167;
+    font-family: 'BubblegumSans';
+    margin-left: 10px;
+}
+
+.form-content > h2 {
+    font-size: 22px;
+    color: #333333;
+    margin: 20px 0px 15px 0px;
+}
+
+.form-content > p {
+    font-size: 14px;
+    color: #9b9b9b;
+    margin-top: 15px;
+}
+
+.form-content > span {
+    font-size: 14px;
+    color: #333333;
+}
+
+.form-content > span > a {
+    font-size: 14px;
+    color: #006fee;
+    text-decoration: none;
+}
+
+.form-content > span > a:hover {
+    text-decoration: underline;
+}
+
+.val-list li {
+    font-size: 14px;
+    color: #a0a0a0;
+    padding: 5px 0;
+    margin-left: 15px;
+}
+
+/* ===== Form ===== */
+
+form {
+    padding: 20px 0px 10px 0px;
+}
+
+form .inputBox {
+    position: relative;
+    width: 350px;
+}
+
+form .inputBox input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    letter-spacing: 1px;
+    color: #333333;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #a0a0a0;
+    outline: none;
+    background: transparent;
+}
+
+form .inputBox label {
+    padding: 10px 0;
+    font-size: 14px;
+    color: #757575;
+    pointer-events: none;
+}
+
+form button[type="submit"] {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #fff;
+    font-size: 16px;
+    background: #006fee;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 25px;
+    margin: 0px;
+}
+
+form button[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+.input-valid {
+    border-bottom: 1px solid rgb(18, 182, 45) !important;
+}
+  
+.input-invalid {
+    border-bottom: 1px solid rgb(197, 22, 22) !important;
+}

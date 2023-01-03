@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Change Password |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/profile_edit.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <script defer src="/static/js/val_passchange.js"></script>
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div id="sections">
+        <div>
+            <div class="block-title">
+                <span class="symbol">edit</span>
+                <p>Change Password</p>
+            </div>
+            <div class="edit-block">
+                <form action="{{ url_for('profile.change_pass', slug=user.slug) }}" method="POST">
+                    <div class="inputBox">
+                        <label class="form-label">Enter initial password</label>
+                        {{ form.password_initial(minlength='3') }}
+                    </div>
+                    <div class="inputBox">
+                        <label class="form-label"><span class="symbol">unlock</span> Enter new password</label>
+                        <ul class="val-list">
+                            <li>contains 8 or more characters</li>
+                            <li>contains at least 1 upper case letter</li>
+                            <li>contains 1 number</li> 
+                            <li>contains one of the following special characters:<br>/ * - + ! @ # $ ^ & ~ [ ]</li>
+                        </ul>
+                        {{ form.password(minlength='3') }}
+                    </div>
+                    <div class="inputBox">
+                        <label class="form-label"><span class="symbol">lock</span> Confirm new password</label>
+                        {{ form.password_confirm(minlength='3') }}
+                    </div>
+                    <div>
+                        <button type="submit" id="sbmt">Submit</button>
+                        <a class="cancel" href="{{ url_for('profile.index', slug=user.slug, filter='new') }}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Profile</h5>
+                </div>
+                <div class="box-profile-content">
+                    <div>
+                        <span class="symbol">user</span>
+                        <p>{{ user.name }}</p>
+                    </div>
+                    <div>
+                        <span class="symbol">mail</span>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <span class="symbol">crown</span>
+                        <p>{{ user.rank.first().name }}</p>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="option-block">
+                        <div>
+                            <div>
+                                <a href="">About</a>
+                                <a href="">Help</a>
+                                <a href="{{ url_for('report') }}">Report</a>
+                            </div>
+                            <div>
+                                <a href="">Terms</a>
+                                <a href="">Content Policy</a>
+                                <a href="">Privacy Policy</a>
+                            </div>
+                        </div>
+                        <div>
+                            <p>iiwii Inc © 2022. All rights reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

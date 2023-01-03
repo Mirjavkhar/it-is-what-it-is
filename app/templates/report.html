@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Report Form |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/post_update.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+        {% if messages %}
+            <div class="alert_fail animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["success"]) %}
+        {% if messages %}
+            <div class="alert_success animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    {% with messages = get_flashed_messages(category_filter=["ctrl"]) %}
+        {% if messages %}
+            <div class="alert_ctrl animate__animated animate__fadeInDown">
+                {{ messages[0] }}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <div class="section">
+        <div class="left">
+            <div class="post-type">
+                <span class="symbol">flag</span>
+                <p>Report Form</p>
+            </div>
+            <form action="{{ url_for('report') }}" enctype="multipart/form-data" method="POST">
+                <select name="report_type" class="custom-select" required>
+                    <option selected disabled>Choose report type</option>
+                    <option value="Bug">Bug</option>
+                    <option value="Error">Error</option>
+                </select>
+                <div class="post-form">
+                    <div class="InputBox">
+                        {{ form.title(minlength='3', maxlength='200', required='', placeholder="Title") }}
+                    </div>
+                    <div class="TextAreaBox">
+                        <label class="form-label"><span class="symbol">keyboard</span> Describe your problem</label>
+                        {{ form.content(minlength='3', maxlength='2000', required='') }}
+                    </div>
+                    <div class="FileUploadBox">
+                        <label class="form-label"><span class="symbol">image</span> Upload image or screenshot of your problem (optional)</label>
+                        {{ form.file() }}
+                    </div>
+                    <div>
+                        <button type="submit">Report</button>
+                        <a class="cancel" href="{{ url_for('index') }}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Report Form</h5>
+                </div>
+                <div class="box-info-content">
+                    <p> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock %}

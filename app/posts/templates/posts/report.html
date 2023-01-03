@@ -1,0 +1,76 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Report Form |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/post_update.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    <div class="section">
+        <div class="left">
+            <div class="post-type">
+                <span class="symbol">flag</span>
+                <p>Report Form</p>
+            </div>
+            <form action="{{ url_for('report') }}" enctype="multipart/form-data" method="POST">
+                <select name="report_type" class="custom-select" required>
+                    <option selected disabled>Choose report type</option>
+                    <option value="Harassment">Harassment</option>
+                    <option value="Threatening violence">Threatening violence</option>
+                    <option value="Sexualization of minors">Sexualization of minors</option>
+                    <option value="Hate">Hate</option>
+                    <option value="Sharing personal information">Sharing personal information</option>
+                    <option value="Involuntary pornography">Involuntary pornography</option>
+                    <option value="Prohibited transaction">Prohibited transaction</option>
+                    <option value="Impersonation">Impersonation</option>
+                    <option value="Copyright violation">Copyright violation</option>
+                    <option value="Trademark violation">Trademark violation</option>
+                    <option value="Self-harm or suicide">Self-harm or suicide</option>
+                    <option value="Spam">Spam</option>
+                    <option value="Misinformation">Misinformation</option>
+                </select>
+                <div class="post-form">
+                    <div class="InputBox">
+                        {{ form.title(minlength='3', maxlength='200', required='', placeholder="Title") }}
+                    </div>
+                    <div class="TextAreaBox">
+                        <label class="form-label"><span class="symbol">keyboard</span> Describe your problem</label>
+                        {{ form.content(minlength='3', maxlength='2000', required='') }}
+                    </div>
+                    <div>
+                        <button type="submit">Report</button>
+                        <a class="cancel" href="{{ url_for('index') }}">Cancel</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Report Form</h5>
+                </div>
+                <div class="box-info-content">
+                    fsadfasdfefwf
+                    <br>
+                    fsadfasdfefwf
+                    <br>
+                    fsadfasdfefwf
+                    <br>
+                    fsadfasdfefwf
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/ckeditor/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('content');
+    </script>
+{% endblock %}

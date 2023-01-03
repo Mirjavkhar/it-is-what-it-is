@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/static/img/logo.png" type="image/x-icon">
+        <link rel="stylesheet" href="/static/css/auth.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/fonts/fonts.css">
+        <link rel="stylesheet" href="/static/css/animate.css">
+        <script src="/static/js/wow.min.js"></script>
+        <script>
+            new WOW().init();
+        </script>
+        <title>Login | iiwii</title>
+    </head>
+    <body>
+        <div class="form-content">
+            <div>
+                <div>
+                    <img src="/static/img/logo.png" alt="">
+                    <h1>it is what it is</h1>
+                </div>
+                <div>
+                    <a href="{{ url_for('index') }}"><span class="symbol">close</span></a>
+                </div>
+            </div>
+            <h2>Login</h2>
+            <span>Haven't registered yet? Go to <a href="{{ url_for('authorization.signup') }}">Sign Up</a></span>
+            {% with messages = get_flashed_messages(category_filter=["fail"]) %}
+                {% if messages %}
+                    <div class="alert animate__animated animate__fadeInDown">
+                        {{ messages[0] }}
+                    </div>
+                {% endif %}
+            {% endwith %}
+            <p>Please enter your email and password.</p>
+            <form action="{{ url_for('authorization.login') }}" method="POST">
+                <div class="inputBox">
+                    <label>Email</label>
+                    {{ form.email() }}
+                </div>
+                <div class="inputBox">
+                    <label>Password</label>
+                    {{ form.password() }}
+                </div>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+
+{% block title %} 
+    Edit Profile |
+{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/profile_edit.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+    </head>
+    <div id="sections">
+        <div>
+            <div class="block-title">
+                <span class="symbol">edit</span>
+                <p>Customize Profile</p>
+            </div>
+            <div class="edit-block">
+                <form action="{{ url_for('profile.edit', slug=user.slug) }}" enctype="multipart/form-data" method="POST">
+                    <div class="AvaUploadBox">
+                        <div>
+                            {% if user.avatar %}
+                                <img src="/static/uploads/[{{ user.id }}]/{{ user.avatar }}" alt="">
+                            {% else %}
+                                <img src="/static/img/default.png" alt="">
+                            {% endif %}
+                        </div>
+                        <div>
+                            <div>
+                                <label class="form-label"><span class="symbol">image</span> Update your avatar</label>
+                                {{ form.avatar() }}
+                            </div>
+                            <div>
+                                <label class="form-label"><span class="symbol">delete</span> Delete Avatar</label>
+                                {{ form.del_ava(class="del-btn") }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="TextAreaBox">
+                        <label class="form-label"><span class="symbol">book</span> Tell about yourself (optional)</label>
+                        {{ form.about(minlength='3', maxlength='200') }}
+                    </div>
+                    <div>
+                        <button type="submit">Submit</button>
+                        <a class="cancel" href="{{ url_for('profile.index', slug=user.slug, filter='new') }}">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Profile</h5>
+                </div>
+                <div class="box-profile-content">
+                    <div>
+                        <span class="symbol">user</span>
+                        <p>{{ user.name }}</p>
+                    </div>
+                    <div>
+                        <span class="symbol">mail</span>
+                        <p>{{ user.email }}</p>
+                    </div>
+                    <div>
+                        <span class="symbol">crown</span>
+                        <p>{{ user.rank.first().name }}</p>
+                    </div>
+                    {% if current_user.is_authenticated and user == current_user %}
+                        <div class="change-btn">
+                            <a href="{{ url_for('profile.change_pass', slug=user.slug) }}"><span class="symbol">lock</span> Change pass</a>
+                            <a href="{{ url_for('profile.change_email', slug=user.slug) }}"><span class="symbol">mail</span> Change email</a>
+                        </div>
+                    {% endif %}
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="option-block">
+                        <div>
+                            <div>
+                                <a href="">About</a>
+                                <a href="">Help</a>
+                                <a href="{{ url_for('report') }}">Report</a>
+                            </div>
+                            <div>
+                                <a href="">Terms</a>
+                                <a href="">Content Policy</a>
+                                <a href="">Privacy Policy</a>
+                            </div>
+                        </div>
+                        <div>
+                            <p>iiwii Inc © 2022. All rights reserved</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

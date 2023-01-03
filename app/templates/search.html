@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+
+{% block title %}{% endblock %}
+
+
+{% block content %} 
+    <head>
+        <link rel="stylesheet" href="/static/css/index.css">
+        <link rel="stylesheet" href="/static/css/post_block.css">
+        <link rel="stylesheet" href="/static/css/common.css">
+        <link rel="stylesheet" href="/static/css/colors.css">
+    </head>
+    <div id="sections">
+        <div id="post-section">
+            <div class="{% if posts %} box-adap {% endif %} box-header">
+                <h5>Posts</h5>
+            </div>
+            {% if not posts %}
+                <div class="if_empty">
+                    <h6>No posts were found.</h6>
+                </div>
+            {% endif %}
+            <ul>
+                {% for post in posts %}
+                    <li class="post-block">
+                        <div class="rate-block">
+                            <div class="rate">
+                                <a id="like_{{ post.slug }}" class="{% if current_user.is_authenticated %} like {% if current_user.is_liked(post) %} marked-up {% endif %}{% endif %}" unselectable='on', onselectstart='return false;' onmousedown='return false;'>
+                                    <span class="symbol">arrowup</span>
+                                </a>
+                                <span class="result">{{ post.rating() }}</span>
+                                <a id="dislike_{{ post.slug }}" class="{% if current_user.is_authenticated %} dislike {% if current_user.is_disliked(post) %} marked-down {% endif %}{% endif %}" unselectable='on', onselectstart='return false;' onmousedown='return false;'>
+                                    <span class="symbol">arrowdown</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="post-detail">
+                            <div>
+                                <div class="post-com-avatar">
+                                    <img src="/static/img/communities/{{ post.community.first().img }}" alt="">
+                                </div>
+                                <div class="post-header">
+                                    <a href="{{ url_for('communities.index', slug=post.community.first().slug, filter='new') }}">c/{{ post.community.first().name }}</a>
+                                    <p>&middot;  Posted by <a href="{{ url_for('profile.index', slug=post.creator.first().slug, filter='new') }}">{{ post.creator.first().rank.first().name }}/{{ post.creator.first().name }}</a></p>
+                                    {% if post.creator.first().official == True %}
+                                        <div class="official">
+                                            <p>&#9752;</p>
+                                        </div>
+                                    {% endif %} 
+                                    <p>{% if post.updated %}&middot; Updated {% endif %} &middot; {{ post.created_on | dtf_m_d }}</p>
+                                </div>
+                            </div>
+                            <div class="post-title">
+                                <a href="{{ url_for('posts.index', slug=post.slug) }}">{{ post.title }}</a>
+                            </div>
+                            {% if post.content %}
+                                <div class="post-content post-content-over">
+                                    <p>{{ post.content | safe }}</p>    
+                                </div>
+                            {% endif %}
+                            {% if post.medias.first() %}
+                                <div class="post-img">
+                                    <img src="/static/uploads/[{{ post.creator.first().id }}]/{{ post.medias.first().name }}" alt="">  
+                                </div>
+                            {% endif %}
+                            <div class="post-footer">
+                                <div class="comments">
+                                    <a href="{{ url_for('posts.index', slug=post.slug, sec='com') }}#comments">
+                                        <span class="symbol">comment</span>
+                                        <p>{{ post.comments.count() }} Comments</p>
+                                    </a>
+                                </div>
+                                <div class="share">
+                                    <button onclick="copy_link('{{ post.slug }}');"><span class="symbol">share</span> Share</button>
+                                    <textarea id="{{ post.slug }}" class="post-link">{{ url_for('posts.index', slug=post.slug,  _external=True) }}</textarea>
+                                </div>
+                                <script>
+                                    function copy_link(link){
+                                        var copyTextarea = document.getElementById(link);
+                                        copyTextarea.select();
+                                        document.execCommand("copy");
+                                        alert("Copied the link!");
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div id="info-block">
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Communities</h5>
+                </div>
+                <div class="box-content">
+                    {% for community in communities %}
+                        {% if community.confirm %}
+                            <div>
+                                <div class="box-info">
+                                    <div class="box-avatar">
+                                        {% if community.img %}
+                                            <img src="/static/img/communities/{{ community.img }}" alt="">
+                                        {% else %}
+                                            <img src="/static/img/default_com_logo.png" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div>
+                                        <p>c/{{ community.name }}</p>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('communities.index', slug=community.slug, filter='new') }}">Go</a>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    {% if not communities %}
+                        <div class="if_empty">
+                            <h6>No communities were found.</h6>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="info-box">
+                <div class="box-header">
+                    <h5>Users</h5>
+                </div>
+                <div class="box-content">
+                    {% for user in users %}
+                        <div>
+                            <div class="box-info">
+                                <div id="avatar-block">
+                                    {% if user.avatar %}
+                                        <img src="/static/uploads/[{{ user.id }}]/{{ user.avatar }}" alt="">
+                                    {% else %}
+                                        <img src="/static/img/default.png" alt="">
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <h6>{{ user.rank.first().name }}/{{ user.name }}</h6>
+                                </div>
+                            </div>
+                            <div>   
+                                <a href="{{ url_for('profile.index', slug=user.slug, filter='new') }}">Go</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if not users %}
+                        <div class="if_empty">
+                            <h6>No users were found.</h6>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
